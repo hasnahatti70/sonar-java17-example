@@ -1,0 +1,120 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: michaelm
+      changes:
+        - createTable:
+            tableName: app_user
+            columns:
+              - column:
+                  name: id
+                  type: varchar(255)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: username
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: password
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: mail_verified_at
+                  type: datetime
+                  constraints:
+                    nullable: true
+        - addUniqueConstraint:
+              columnNames: username
+              constraintName: app_user_username
+              tableName: app_user
+        - createTable:
+            tableName: spring_session
+            columns:
+              - column:
+                  name: primary_id
+                  type: varchar(255)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: session_id
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: creation_time
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: last_access_time
+                  type: bigint
+                  constraints:
+                    nullable: true
+              - column:
+                  name: max_inactive_interval
+                  type: bigint
+                  constraints:
+                    nullable: true
+              - column:
+                  name: expiry_time
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: PRINCIPAL_NAME
+                  type: varchar(255)
+                  constraints:
+                    nullable: true
+        - addUniqueConstraint:
+            columnNames: session_id
+            constraintName: SPRING_SESSION_IX1
+            tableName: spring_session
+        - createIndex:
+            columns:
+              - column:
+                  name: expiry_time
+                  type: bigint
+            indexName: SPRING_SESSION_IX2
+            tableName: spring_session
+        - createIndex:
+            columns:
+              - column:
+                  name: principal_name
+                  type: varchar(255)
+            indexName: SPRING_SESSION_IX3
+            tableName: spring_session
+
+        - createTable:
+            tableName: spring_session_attributes
+            columns:
+              - column:
+                  name: session_primary_id
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: attribute_name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: attribute_bytes
+                  type: bytea
+                  constraints:
+                    nullable: false
+        - addPrimaryKey:
+            columnNames: session_primary_id, attribute_name
+            constraintName: SPRING_SESSION_ATTRIBUTES_PK
+            tableName: spring_session_attributes
+        - addForeignKeyConstraint:
+            baseColumnNames: session_primary_id
+            baseTableName: spring_session_attributes
+            constraintName: SPRING_SESSION_ATTRIBUTES_FK
+            onDelete: CASCADE
+            referencedColumnNames: primary_id
+            referencedTableName: spring_session

@@ -1,0 +1,7 @@
+databaseChangeLog:
+   - include:
+       file: classpath*:db/changelog/changes/20180111-base-changelog.yaml
+   - include:
+       file: classpath*:db/changelog/changes/201902261645_add_resettoken.yml
+   - include:
+       file: classpath*:db/changelog/changes/201902261645_add_validate_email_token.yml

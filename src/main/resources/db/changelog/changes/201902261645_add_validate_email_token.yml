@@ -1,0 +1,43 @@
+databaseChangeLog:
+    - property:
+        name: now
+        value: current_timestamp
+        dbms: postgresql
+    - property:
+        name: floatType
+        value: float4
+        dbms: postgresql
+    - changeSet:
+        id: 201906071645
+        author: sipios
+        changes:
+        - createTable:
+            tableName: validate_email_token
+            columns:
+            - column:
+                name: id
+                type: varchar(255)
+                constraints:
+                    primaryKey: true
+                    nullable: false
+            - column:
+                name: user_id
+                type: varchar(255)
+                constraints:
+                    nullable: false
+            - column:
+                name: expiry_date
+                type: timestamp
+                constraints:
+                    nullable: false
+            - column:
+                name: used_date
+                type: timestamp
+                constraints:
+                    nullable: true
+        - addForeignKeyConstraint:
+              baseColumnNames: user_id
+              baseTableName: validate_email_token
+              constraintName: fk_validate_email_token_user
+              referencedColumnNames: id
+              referencedTableName: app_user

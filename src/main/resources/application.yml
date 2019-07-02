@@ -1,0 +1,81 @@
+info:
+  version: 0.0.1
+
+spring:
+  application:
+    name: hyperspace-local
+
+  data:
+    rest:
+      detection-strategy: annotated
+
+  session:
+    store-type: jdbc
+
+  liquibase:
+    user: postgres
+    password: password
+
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+      write-dates-as-timestamps: false
+  date-format: com.fasterxml.jackson.databind.util.ISO8601DateFormat
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: password
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate.jdbc.lob.non_contextual_creation: true
+
+  mail:
+    host: ${SMTP_HOST}
+    username: ${SMTP_USERNAME}
+    password: ${SMTP_PASSWORD}
+    properties:
+      mail:
+        transport:
+          protocol: smtp
+        smtp:
+          ssl:
+            enable: true
+          port: 465
+          auth: true
+          starttls:
+            enable: true
+            required: true
+
+server:
+  error.whitelabel.enabled: false
+  servlet:
+    session:
+      timeout: 30m
+      cookie:
+        http-only: true
+        secure: true
+
+application:
+  mail:
+    images:
+      logo: https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Spring_Framework_Logo_2018.svg/1280px-Spring_Framework_Logo_2018.svg.png
+    background-color: "#fcfaf7"
+    contact: "mailto:contact@hyperspace.fr"
+    notification-url: "http://localhost/notifications"
+  reset-password:
+    url: "http://localhost/reset-password?token={0}"
+    from: "no-reply-local@hyperspace.fr"
+    subject: "Forgotten password ?"
+    reset-token-duration: "60m"
+  validation-mail:
+    url: "http://localhost/validate-email?token={0}"
+    from: "no-reply-local@hyperspace.fr"
+    subject: "Last step to complete your process !"
+    validation-token-duration: "7d"

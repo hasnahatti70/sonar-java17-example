@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: hyperspace
+
+server:
+  error.whitelabel.enabled: false
+  servlet:
+    session:
+      timeout: 30h
+      cookie:
+        http-only: false
+        secure: false
