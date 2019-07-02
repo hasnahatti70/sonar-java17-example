@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("protected")
-@Api(tags = {"protected"})
+@Api(tags = { "protected" })
 public class ProtectedRestController {
     /**
      * This resource is protected by the implementation of the WebSecurity configuration
