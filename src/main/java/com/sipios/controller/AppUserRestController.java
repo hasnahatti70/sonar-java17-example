@@ -6,7 +6,6 @@ import com.sipios.model.user.SignUpForm;
 import com.sipios.model.user.ValidationEmailForm;
 import com.sipios.model.user.token.ResetPasswordToken;
 import com.sipios.model.user.token.ValidateEmailToken;
-import com.sipios.repository.AppUserRepository;
 import com.sipios.repository.ResetPasswordTokenRepository;
 import com.sipios.repository.ValidateEmailTokenRepository;
 import com.sipios.service.auth.AuthService;
@@ -35,20 +34,6 @@ public class AppUserRestController {
     private final AuthService authService;
     private final ResetPasswordTokenRepository resetPasswordTokenRepository;
     private final ValidateEmailTokenRepository validateEmailTokenRepository;
-    private final AppUserRepository userRepository;
-
-    @PostMapping("/sign-up-no-email")
-    @ApiOperation(value = "Sign-up", notes = "Sign-up a new user", tags = {"unprotected"})
-    @ApiResponses(
-        {
-            @ApiResponse(code = 200, message = "", response = AppUser.class),
-            @ApiResponse(code = 400, message = "Username is already taken", response = AppUser.class),
-            @ApiResponse(code = 400, message = "Request body is not valid", response = AppUser.class),
-        }
-    )
-    public ResponseEntity<AppUser> signUp2(@RequestBody @Valid AppUser user) {
-        return ResponseEntity.ok(userRepository.save(user));
-    }
 
     @PostMapping("/sign-up")
     @ApiOperation(value = "Sign-up", notes = "Sign-up a new user", tags = {"unprotected"})
