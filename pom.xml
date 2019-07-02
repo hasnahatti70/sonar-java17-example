@@ -4,10 +4,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.sipios</groupId>
-    <artifactId>hyperspace</artifactId>
+    <artifactId>sonar-simple-example</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>hyperspace</name>
+    <name>sonar-simple-example</name>
     <description>generator-spring project</description>
 
     <parent>
@@ -24,6 +24,10 @@
         <project.testresult.directory>${project.build.directory}/test-results</project.testresult.directory>
         <sonar.jacoco.itReportPath>${project.testresult.directory}/coverage/jacoco/jacoco-it.exec</sonar.jacoco.itReportPath>
         <sonar.jacoco.reportPath>${project.testresult.directory}/coverage/jacoco/jacoco.exec</sonar.jacoco.reportPath>
+        <sonar.coverage.exclusions>
+            **/model/**/*,
+            **/config/**/*
+        </sonar.coverage.exclusions>
     </properties>
 
     <dependencies>
