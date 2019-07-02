@@ -27,7 +27,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
-@Api(tags = {"users", "auth"})
+@Api(tags = { "users", "auth" })
 @AllArgsConstructor
 public class AppUserRestController {
 
